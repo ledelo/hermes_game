@@ -79,6 +79,7 @@
   <div class="tabs" role="tablist">
     <button class="tab" id="tab-fwd" role="tab" aria-selected="true" onclick="mode('fwd')">순이익 계산</button>
     <button class="tab" id="tab-rev" role="tab" aria-selected="false" onclick="mode('rev')">판매가 역산</button>
+    <button class="tab" id="tab-goal" role="tab" aria-selected="false" onclick="mode('goal')">목표 판매량</button>
   </div>
 
   <div class="grid">
@@ -91,6 +92,16 @@
       <div class="field hidden" id="f-margin">
         <label for="tmargin">목표 마진율 (%)</label>
         <input id="tmargin" type="number" inputmode="decimal" min="0" max="60" step="0.5" value="18">
+      </div>
+      <div class="row2 hidden" id="f-goal">
+        <div class="field">
+          <label for="goalprofit">월 목표 순익 (원)</label>
+          <input id="goalprofit" type="number" inputmode="numeric" min="0" step="100000" value="1000000">
+        </div>
+        <div class="field">
+          <label for="fixedcost">월 고정비 (원)</label>
+          <input id="fixedcost" type="number" inputmode="numeric" min="0" step="10000" value="0">
+        </div>
       </div>
       <div class="row2">
         <div class="field">
@@ -147,35 +158,60 @@
 
   function mode(m){
     cur = m;
-    $('tab-fwd').setAttribute('aria-selected', m==='fwd');
-    $('tab-rev').setAttribute('aria-selected', m==='rev');
+    for(const t of ['fwd','rev','goal']) $('tab-'+t).setAttribute('aria-selected', m===t);
     $('f-price').classList.toggle('hidden', m==='rev');
-    $('f-margin').classList.toggle('hidden', m==='fwd');
-    $('ledger-title').textContent = m==='fwd' ? '정산 명세' : '권장 판매가';
+    $('f-margin').classList.toggle('hidden', m!=='rev');
+    $('f-goal').classList.toggle('hidden', m!=='goal');
+    $('ledger-title').textContent = m==='fwd' ? '정산 명세' : (m==='rev' ? '권장 판매가' : '목표 달성 계산');
     calc();
   }
 
   function calc(){
     const fee = feeRate(), cogs = num('cost') + num('ship');
     let price;
-    if(cur === 'fwd'){
-      price = num('price');
-    }else{
+    if(cur === 'rev'){
       const tm = Math.min(num('tmargin'), 60) / 100;
       const denom = 1 - fee - tm;
       price = denom > 0.01 ? Math.ceil((cogs / denom) / 100) * 100 : 0;
+    }else{
+      price = num('price');
     }
     const feeAmt = price * fee;
     const pay = price - feeAmt;
     const profit = pay - cogs;
     const margin = price > 0 ? profit / price : 0;
+    const rows = document.querySelectorAll('.ledger .li');
+    rows[1].classList.toggle('minus', cur!=='goal');
+    rows[3].classList.toggle('minus', cur!=='goal');
 
+    if(cur === 'goal'){
+      const goal = num('goalprofit'), fixed = num('fixedcost');
+      const need = goal + fixed;
+      const units = profit > 0 ? Math.ceil(need / profit) : 0;
+      $('k-rev').textContent = '개당 순이익 (현재 입력 기준)';
+      $('v-rev').textContent = won(profit);
+      $('k-fee').textContent = '월 필요 순이익 (목표+고정비)';
+      $('v-fee').textContent = won(need);
+      $('v-pay').textContent = profit > 0 ? KRW.format(units) + '개' : '마진이 0 이하입니다';
+      $('v-cogs').textContent = profit > 0 ? (units/30).toFixed(1) + '개' : '—';
+      $('v-total').textContent = won(units * price);
+      $('total').classList.toggle('negative', profit <= 0);
+      $('k-total').textContent = '필요 월 매출';
+      document.querySelector('#total').previousElementSibling.querySelector('.k').textContent = '일 평균 판매량 (30일 기준)';
+      document.querySelectorAll('.ledger .li')[2].querySelector('.k').textContent = '필요 판매량 (월)';
+      $('s-left').textContent = '기준 판매가';
+      $('s-right').textContent = won(price);
+      return;
+    }
     $('k-rev').textContent = cur==='fwd' ? '매출액' : '권장 판매가 (100원 올림)';
     $('v-rev').textContent = won(price);
     $('k-fee').textContent = `수수료 (${(fee*100).toFixed(2)}%)`;
     $('v-fee').textContent = '−' + won(feeAmt);
+    document.querySelectorAll('.ledger .li')[2].querySelector('.k').textContent = '정산예정액';
     $('v-pay').textContent = won(pay);
+    document.querySelector('#total').previousElementSibling.querySelector('.k').textContent = '총원가 (도매가+배송비)';
     $('v-cogs').textContent = '−' + won(cogs);
+    $('k-total').textContent = '순이익';
     $('v-total').textContent = won(profit);
     $('total').classList.toggle('negative', profit < 0);
     $('s-left').textContent = '마진율';
