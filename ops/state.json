@@ -13,10 +13,10 @@
   "zero_cash_mode": true,
   "initial_stock_per_listing": 5,
   "float_cap_krw": 200000,
-  "last_research_at_utc": "2026-08-12T09:50:00Z",
+  "last_research_at_utc": "2026-08-12T13:57:00Z",
   "last_reminder_at_utc": "2026-08-12T01:52:00Z",
-  "last_probe_at_utc": "2026-08-12T09:50:00Z",
-  "wake_count": 8,
+  "last_probe_at_utc": "2026-08-12T13:57:00Z",
+  "wake_count": 12,
   "tool_gap_count": 0,
   "last_stock_audit_utc": null,
   "last_kpi_log_utc": null,
@@ -26,7 +26,8 @@
     "주방 수납 정리", "여행용 파우치", "목베개", "욕실 선반",
     "캠핑 랜턴", "캠핑 의자", "차량용 거치대", "반려동물 장난감",
     "여행용 목베개 메모리폼", "캐리어 커버", "여권 지갑",
-    "피크닉 매트", "아이스박스 보냉백", "등산 스틱"
+    "피크닉 매트", "아이스박스 보냉백", "등산 스틱",
+    "옷장 정리함", "신발 정리대", "압축팩"
   ],
   "next_keyword_candidates": [
     "옷장 정리함", "신발 정리대", "압축팩",
