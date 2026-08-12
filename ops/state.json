@@ -1,0 +1,35 @@
+{
+  "phase": "AWAITING_CONNECTION",
+  "created_at_utc": "2026-08-12T01:40:00Z",
+  "deadline_kst": "2026-08-26",
+  "target_net_profit_krw": 1000000,
+  "connections": { "naver": false, "coupang": false, "cafe24": false },
+  "store_setup_saved": true,
+  "listings_created": [],
+  "listings_cap": 100,
+  "daily_new_listing_cap": 10,
+  "margin_floor_pct": 10,
+  "target_margin_pct": 18,
+  "last_research_at_utc": "2026-08-12T01:38:00Z",
+  "last_reminder_at_utc": null,
+  "last_stock_audit_utc": null,
+  "last_kpi_log_utc": null,
+  "last_expand_utc": null,
+  "research_keywords_done": [
+    "독서대", "태블릿 거치대", "노트북 거치대", "무릎담요",
+    "주방 수납 정리", "여행용 파우치", "목베개", "욕실 선반",
+    "캠핑 랜턴", "캠핑 의자", "차량용 거치대", "반려동물 장난감"
+  ],
+  "next_keyword_candidates": [
+    "여행용 목베개 메모리폼", "캐리어 커버", "여권 지갑",
+    "피크닉 매트", "아이스박스 보냉백", "등산 스틱",
+    "옷장 정리함", "신발 정리대", "압축팩",
+    "책상 정리함", "펜꽂이 연필꽂이", "탁상 달력 보드",
+    "무선 마우스 패드", "손목 받침대", "모니터 받침대",
+    "우산 자동 3단", "현관 우산꽂이", "차량용 청소기 소품",
+    "고양이 스크래쳐", "강아지 배변패드 홀더", "냄비받침 실리콘",
+    "설거지 건조대", "수세미 거치대", "분리수거함"
+  ],
+  "pending_supplier_orders": [],
+  "notes": "네이버/쿠팡/카페24 모두 미연동. 연동 감지 시 LAUNCH 단계 자동 실행."
+}
