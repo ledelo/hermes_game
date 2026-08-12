@@ -10,10 +10,10 @@
   "daily_new_listing_cap": 10,
   "margin_floor_pct": 10,
   "target_margin_pct": 18,
-  "last_research_at_utc": "2026-08-12T05:50:00Z",
+  "last_research_at_utc": "2026-08-12T09:50:00Z",
   "last_reminder_at_utc": "2026-08-12T01:52:00Z",
-  "last_probe_at_utc": "2026-08-12T05:50:00Z",
-  "wake_count": 4,
+  "last_probe_at_utc": "2026-08-12T09:50:00Z",
+  "wake_count": 8,
   "tool_gap_count": 0,
   "last_stock_audit_utc": null,
   "last_kpi_log_utc": null,
@@ -22,10 +22,10 @@
     "독서대", "태블릿 거치대", "노트북 거치대", "무릎담요",
     "주방 수납 정리", "여행용 파우치", "목베개", "욕실 선반",
     "캠핑 랜턴", "캠핑 의자", "차량용 거치대", "반려동물 장난감",
-    "여행용 목베개 메모리폼", "캐리어 커버", "여권 지갑"
+    "여행용 목베개 메모리폼", "캐리어 커버", "여권 지갑",
+    "피크닉 매트", "아이스박스 보냉백", "등산 스틱"
   ],
   "next_keyword_candidates": [
-    "피크닉 매트", "아이스박스 보냉백", "등산 스틱",
     "옷장 정리함", "신발 정리대", "압축팩",
     "책상 정리함", "펜꽂이 연필꽂이", "탁상 달력 보드",
     "무선 마우스 패드", "손목 받침대", "모니터 받침대",
