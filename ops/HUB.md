@@ -17,6 +17,7 @@
 
 ## 환경 노트
 - **LibreOffice**: 컨테이너에 기본으로 `libreoffice-calc`가 없어 recalc가 행에 걸림. 컨테이너 재생성 후 첫 엑셀 작업 전에 `dpkg -l libreoffice-calc || (apt-get update && apt-get install -y libreoffice-calc)` 실행할 것. 설치 불가 시 정적 린트 폴백 + README에 명시.
+- **폰트 함정**: 컨테이너에 Malgun Gothic이 없어 recalc.py(LibreOffice 저장)가 폰트를 WenQuanYi로 대체하고 문자열을 rich-text run으로 쪼갬. **재계산 후 반드시 `tools/fix_fonts.py`로 원복**할 것 (styles/sharedStrings/theme만 zip 패치, 수식·캐시값 불변).
 
 ## 허브 틱 알고리즘 (매 웨이크)
 1. **Track A 프로브**: list_listings(count_only). 연동 감지 → 즉시 LAUNCH (Track B 완성품도 함께 등록). 4시간마다 소싱 리서치.
@@ -31,7 +32,7 @@
 | 1 | B | 스마트스토어 셀러용 「정산·마진 관리 대시보드」 엑셀 (판매가 ₩7,900) | ✅ DONE (products/smartstore-margin-dashboard/) |
 | 2 | C | 「마진노트」 수수료·마진 계산기 — Artifact 배포 (https://claude.ai/code/artifact/c39927c3-703e-4982-9eb1-685d437061f7) | ✅ DONE (v1) |
 | 2b | C | Higgsfield 호스팅판 | HOLD — 디자인 파이프라인이 이미지·필름 생성(크레딧 과금) 필수라 무지출 원칙과 충돌. 사용자가 무료 크레딧 사용을 승인하면 재개 |
-| 3 | B | 「2026-2027 자동 가계부」 엑셀 — 월별 대시보드 (₩5,900) | QUEUED |
+| 3 | B | 「2026-2027 자동 가계부」 엑셀 — 월별 대시보드 (₩5,900) | ✅ DONE (Opus 제작·Fable 검수: 245수식/0오류, 수치검증 30항목 통과) |
 | 4 | B | 「위탁판매 재고·발주 트래커」 엑셀 (₩7,900) | QUEUED |
 | 5 | B | 「추석 선물·예산 플래너」 엑셀+PDF (시즌, ₩3,900) | QUEUED |
 | 6 | B | 「깔끔한 국문 이력서·자소서 세트」 docx (₩4,900) | QUEUED |
