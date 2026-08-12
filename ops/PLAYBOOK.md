@@ -26,7 +26,7 @@
 ### PHASE = AWAITING_CONNECTION (현재)
 1. `list_listings(count_only=true)` 호출 → `NAVER_NOT_CONNECTED`면 아직 미연동.
 2. 미연동 시:
-   - `state.last_research_at`이 4시간 이상 전이면: 새 키워드 3~4개로 `find_supplier_opportunities` 실행, S/A등급만 LAUNCH_QUEUE에 추가(중복 제거, 가드레일 4 적용), `last_research_at` 갱신. `next_keyword_candidates`에서 꺼내 쓰고 소진 시 시즌(신학기·가을·추석여행·캠핑·수납) 변형 키워드 생성.
+   - `state.last_research_at`이 4시간 이상 전이면 **리서치 v2 (수요 우선)**: ① 트렌드 스캔 선행 — WebSearch로 최근 한국 커머스 트렌드 기사·급증 품목 확인(주 1회 이상 갱신, 출처를 큐에 기록). ② 스캔에서 도출된 키워드 + 시즌 캘린더 키워드로 `find_supplier_opportunities` 실행. ③ S/A등급 + 가드레일 통과분만 큐에 추가하되, 수요 근거(트렌드 출처/시즌 확정) 있는 품목에 ★태그 — LAUNCH와 확장 시 ★ 우선. ④ 구글 트렌드 일간(연예 위주)은 쇼핑 신호로 쓰지 않는다(2026-08-13 검증). `last_research_at` 갱신.
    - `state.last_reminder_at`이 24시간 이상 전이고 KST 09~21시면: PushNotification 1회 "네이버 연동 대기 중" 리마인드, `last_reminder_at` 갱신.
    - 그 외에는 아무것도 하지 않고 조용히 종료 (토큰 절약).
 3. 연동 감지되면 → PHASE = LAUNCH 로 전환하고 즉시 LAUNCH 실행.
