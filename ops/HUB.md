@@ -18,7 +18,7 @@
 - 검수 기준: 수식 재계산(recalc.py) 통과, 가드레일 위반 없음, 실제로 쓸만한 품질(스스로 돈 주고 살 물건인가).
 
 ## 환경 노트
-- **LibreOffice**: 컨테이너에 기본으로 `libreoffice-calc`가 없어 recalc가 행에 걸림. 컨테이너 재생성 후 첫 엑셀 작업 전에 `dpkg -l libreoffice-calc || (apt-get update && apt-get install -y libreoffice-calc)` 실행할 것. 설치 불가 시 정적 린트 폴백 + README에 명시.
+- **LibreOffice**: 컨테이너 기본 이미지에 calc/writer 모듈이 없음(core만). 모듈 확인은 반드시 `dpkg -l <pkg> | grep -q '^ii'` 형태로 — `dpkg -l`은 미설치(un)여도 종료코드 0이라 오탐함(2026-08-13 이력서 에이전트 발견). 엑셀 작업 전 libreoffice-calc, docx 검증 전 libreoffice-writer 설치. 설치 불가 시 정적 린트 폴백 + README 명시.
 - **폰트 함정**: 컨테이너에 Malgun Gothic이 없어 recalc.py(LibreOffice 저장)가 폰트를 WenQuanYi로 대체하고 문자열을 rich-text run으로 쪼갬. **재계산 후 반드시 `tools/fix_fonts.py`로 원복**할 것 (styles/sharedStrings/theme만 zip 패치, 수식·캐시값 불변).
 
 ## 허브 틱 알고리즘 (매 웨이크)
@@ -39,7 +39,7 @@
 | 5 | B | 「추석 선물·예산 플래너」 엑셀 (시즌, ₩3,900) | ✅ DONE (183수식/0오류, 검산·분기 통과, 2026 추석 9/25 웹 교차검증) |
 | 5b | B/E | **출시 카피 팩** (products/listing-copy/COPY_PACK.md) — 5개 상품 등록 문안·태그·청약철회 고지·서비스 SOP | ✅ DONE (금지문구 0건, 글자수 전수 검사, 허브 재대조 완료) |
 | 6 | F | 「위탁판매 시작 체크리스트 가이드」 전자책 PDF (₩9,900) | ✅ DONE (27쪽, 한글 폰트 임베드, 금지문구 0, 수익보장 면책 표지 명시, 허브 시각검수 통과) |
-| 7 | B | 「깔끔한 국문 이력서·자소서 세트」 docx (₩4,900) | QUEUED |
+| 7 | B | 「깔끔한 국문 이력서·자소서 세트」 docx 4종 (₩4,900) | ✅ DONE (Opus 제작·Fable 검수: 맑은고딕 단일 폰트, 금지어 0, PDF 렌더 시각검수 통과, git 미사용 준수) |
 | 8 | C | 웹툴 v2: 계산기에 손익분기 시뮬레이터 + 스토어 링크 | QUEUED |
 
 ## Track B 판매 메커니즘 (연동 후)
