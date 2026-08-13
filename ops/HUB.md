@@ -20,6 +20,7 @@
 ## 환경 노트
 - **LibreOffice**: 컨테이너 기본 이미지에 calc/writer 모듈이 없음(core만). 모듈 확인은 반드시 `dpkg -l <pkg> | grep -q '^ii'` 형태로 — `dpkg -l`은 미설치(un)여도 종료코드 0이라 오탐함(2026-08-13 이력서 에이전트 발견). 엑셀 작업 전 libreoffice-calc, docx 검증 전 libreoffice-writer 설치. 설치 불가 시 정적 린트 폴백 + README 명시.
 - **폰트 함정**: 컨테이너에 Malgun Gothic이 없어 recalc.py(LibreOffice 저장)가 폰트를 WenQuanYi로 대체하고 문자열을 rich-text run으로 쪼갬. **재계산 후 반드시 `tools/fix_fonts.py`로 원복**할 것 (styles/sharedStrings/theme만 zip 패치, 수식·캐시값 불변).
+- **바이너리 업로드 불가**: Drive MCP create_file은 인라인 base64만 받는데, LLM 토큰 스트림의 base64 재현은 ~6KB부터 무성 손상됨(2026-08-13 실측: 9,140자 탈락, md5 불일치). rclone/서비스계정도 없음. **에이전트/허브의 바이너리 업로드 시도 금지** — 전달 인프라는 사용자 수동 업로드(Track D #5) 또는 자격증명 제공 후에만. Drive MCP는 삭제 도구가 없어 손상 파일이 영구 잔류하니 검증 없는 업로드 절대 금지.
 
 ## 허브 틱 알고리즘 (매 웨이크)
 1. **Track A 프로브**: list_listings(count_only). 연동 감지 → 즉시 LAUNCH (Track B 완성품도 함께 등록). 4시간마다 소싱 리서치.
@@ -52,6 +53,7 @@
 2. 쿠팡 WING OPEN API 키 발급 → Leviosa 등록 (제2 판매 채널, 무료)
 3. 토스/카카오페이 송금 링크 1개 → 웹툴에 후원 버튼 부착 (무료)
 4. **네이버 검색광고 계정 + API 키 (무료)** → 키워드별 **월간 검색량 실측** 확보. 현재 수요 판단은 트렌드 기사 수준인데, 이게 열리면 검색량 기반으로 상품 선정 정밀도가 한 단계 올라감 (searchad.naver.com 가입 → 도구 > API 사용 관리)
+5. **디지털 상품 6종을 Drive 폴더에 드래그 업로드 (1분)** → 구매자 전달 인프라 완성. 파일 6개는 채팅으로 이미 전달됨(대시보드·가계부·트래커·플래너 xlsx, 가이드 pdf, 이력서 zip). 폴더: https://drive.google.com/drive/folders/1CuS30K2tcj6g85h3SUMA9BQskeaTdmcP ("Hermes 디지털상품"). 주의: Drive 설정의 '업로드 변환' 꺼야 xlsx가 구글시트로 안 바뀜. ※에이전트 업로드는 불가 판정 — 아래 환경 노트 참조
 - 원칙: 여기 항목은 알림으로만 안내, 진행은 절대 블로킹하지 않음.
 
 ## 발전량 측정 (매일 저녁 기록)
