@@ -23,6 +23,11 @@
 
 ## 상태머신
 
+### 대기 중 사전검증 루틴 (2026-08-13 신설 — "대기 틱은 놀지 않는다")
+- 연동 대기 틱마다 LAUNCH 후보를 앞에서부터 `inspect_supplier_product`(배치 모드)로 사전 실사: 옵션별 추가금·조합 재고·실배송비 확인 → 최악 조합 마진 ≥10% 검증 → 통과 시 `LAUNCH_READY`, 가격 조정 필요 시 인상가 기록, 시장성 상실 시 DROP.
+- **도구 버그 주의**: `min/max_supply_price` 필드는 수량 티어 문자열("1+2140|50+2130")을 숫자로 잘못 이어붙임 — 신뢰 금지, `supply_price` 티어 문자열을 직접 파싱(1~3개 구간 단가 사용). 배송비는 `delivery.defaultFee` → `fee` → `tbl` 첫 구간 순으로 파싱.
+- 리서치 단계의 배송비는 실사와 다를 수 있음(48557930 사례: 1,000→3,000원으로 원가 역전) — LAUNCH_READY 없이 등록 금지.
+
 ### PHASE = AWAITING_CONNECTION (현재)
 1. `list_listings(count_only=true)` 호출 → `NAVER_NOT_CONNECTED`면 아직 미연동.
 2. 미연동 시:
