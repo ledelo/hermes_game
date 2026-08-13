@@ -18,6 +18,7 @@
 - 검수 기준: 수식 재계산(recalc.py) 통과, 가드레일 위반 없음, 실제로 쓸만한 품질(스스로 돈 주고 살 물건인가).
 
 ## 환경 노트
+- **API 529 (Overloaded)**: Anthropic 서버 과부하로 틱 턴 자체가 죽는 경우가 있음 (2026-08-13 심야 2회 관측). 시스템 영향 없음 — 상태는 git에 있고 다음 틱이 자동 이어받음. 유실 틱의 리서치/프로브는 다음 정상 틱에서 만회. 사용자 조치 불요.
 - **LibreOffice**: 컨테이너 기본 이미지에 calc/writer 모듈이 없음(core만). 모듈 확인은 반드시 `dpkg -l <pkg> | grep -q '^ii'` 형태로 — `dpkg -l`은 미설치(un)여도 종료코드 0이라 오탐함(2026-08-13 이력서 에이전트 발견). 엑셀 작업 전 libreoffice-calc, docx 검증 전 libreoffice-writer 설치. 설치 불가 시 정적 린트 폴백 + README 명시.
 - **폰트 함정**: 컨테이너에 Malgun Gothic이 없어 recalc.py(LibreOffice 저장)가 폰트를 WenQuanYi로 대체하고 문자열을 rich-text run으로 쪼갬. **재계산 후 반드시 `tools/fix_fonts.py`로 원복**할 것 (styles/sharedStrings/theme만 zip 패치, 수식·캐시값 불변).
 - **바이너리 업로드 불가**: Drive MCP create_file은 인라인 base64만 받는데, LLM 토큰 스트림의 base64 재현은 ~6KB부터 무성 손상됨(2026-08-13 실측: 9,140자 탈락, md5 불일치). rclone/서비스계정도 없음. **에이전트/허브의 바이너리 업로드 시도 금지** — 전달 인프라는 사용자 수동 업로드(Track D #5) 또는 자격증명 제공 후에만. Drive MCP는 삭제 도구가 없어 손상 파일이 영구 잔류하니 검증 없는 업로드 절대 금지.
