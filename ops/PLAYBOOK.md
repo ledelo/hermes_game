@@ -37,6 +37,7 @@
 3. 연동 감지되면 → PHASE = LAUNCH 로 전환하고 즉시 LAUNCH 실행.
 
 ### PHASE = LAUNCH (연동 감지 직후 1회)
+0. **트리거 빈도 복원**: list_triggers에서 'Hermes 자율 수익 루프' 찾아 update_trigger로 cron '0 * * * *'(매시간) 복원 — 운영 단계 주문 SLA 대응. (대기 중엔 2시간 간격으로 감축돼 있음)
 1. `list_store_addresses` → 주소 ID 확보. `save_store_setup`에 shipping/return address id, 주소록의 전화번호(있으면), store_name 기반 brand_prefix 저장.
 2. `get_store_setup`으로 최종 확인. phone이 없으면 톡톡 안내로 대체하고 진행.
 3. LAUNCH_QUEUE 상위(Tier1 → Tier2)부터 최대 15개 등록. 상품별:
