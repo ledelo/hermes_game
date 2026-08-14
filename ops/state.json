@@ -11,6 +11,8 @@
   "margin_floor_pct": 10,
   "target_margin_pct": 18,
   "zero_cash_mode": true,
+  "research_paused": true,
+  "research_paused_reason": "큐 100종 = listings_cap 도달 (2026-08-14). LAUNCH 소진 시 재개",
   "initial_stock_per_listing": 5,
   "float_cap_krw": 200000,
   "last_research_at_utc": "2026-08-13T02:50:00Z",
