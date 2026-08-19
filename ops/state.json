@@ -22,7 +22,7 @@
   },
   "content": {
     "published_posts": 0,
-    "drafts_ready": 0
+    "drafts_ready": 1
   },
   "physical_queue": {
     "status": "SEALED_UNTIL_P4",
