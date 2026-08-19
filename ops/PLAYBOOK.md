@@ -1,5 +1,7 @@
 # PLAYBOOK — 자율 수익 루프 운영 규칙
 
+> **⚠️ 장기 모드 오버라이드 (2026-08-17 사용자 지시, 최우선 적용)**: 마스터 플랜은 `ops/LONGTERM_PIPELINE.md`다. 이 플레이북의 실물 상태머신(LAUNCH/OPERATE/FINAL)은 **Phase 4(사업자 전환) 개방 전까지 봉인**된다. **네이버 연동이 감지되어도 실물 86종을 등록하지 않는다** — Phase 3 절차(디지털 상품·서비스만 등록, 거래 카운터 추적, 연 40회 도달 시 게이트 알림)만 수행한다. 2주 데드라인(8-26)·목표 100만원 조항은 폐기됐다. 이 문서는 P4 졸업 후 실물 위탁 실행 매뉴얼로 보존된다. 가드레일(마진 하한·재고·정직·무지출 등)은 전 Phase 공통으로 계속 유효하다.
+
 > 매 웨이크 시작: `git pull origin claude/autonomous-revenue-agent-bxoqos` → `ops/state.json` 읽기 → 아래 상태머신 1회 실행 → 변경사항 커밋+푸시.
 > 도구 로딩: leviosa 도구가 안 보이면 ToolSearch 키워드 검색(예: `+list_listings`, `+create_listing_from_supplier`)으로 로드한다. MCP 재연결 시 도구 이름의 접두사(UUID)가 바뀔 수 있으므로 항상 베이스 이름으로 검색할 것. 컨테이너가 재생성됐다면 저장소를 다시 clone/checkout 후 진행.
 
